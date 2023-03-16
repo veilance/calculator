@@ -66,12 +66,6 @@ describe("Repeating Operations", () => {
   });
 })
 
-describe("Memory", () => {
-  // test(" to equal ", () => {
-  //   expect(handleCalculation("")).toBe("");
-  // });
-})
-
 describe("Roots, Exponents and Power Functions", () => {
   test("√36 to equal 6", () => {
     expect(handleCalculation("√36")).toBe("6");

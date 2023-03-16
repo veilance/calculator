@@ -14,8 +14,8 @@
 - [x] The calculator should have a navigation bar or panel which displays the user’s authentication status
 
 The calculator should have the following features:
-- [ ] Memory functions (M+, M-, MR, MC)
-- [ ] Percentage function (%)
-- [ ] Square root function (√)
-- [ ] Exponential function (^)
+- [x] Memory functions (M+, M-, MR, MC)
+- [x] Percentage function (%)
+- [x] Square root function (√)
+- [x] Exponential function (^)
 - [ ] History function

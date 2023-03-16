@@ -1,5 +1,6 @@
 import { Grid, Button, TextField } from "@mui/material";
 import { Field, FieldProps, Formik } from "formik";
+import { useState } from "react";
 import { handleCalculation } from "./calculatorHelpers";
 
 const operators = ["/", "*", "-", "+"];
@@ -32,6 +33,8 @@ const buttons = [
 ];
 
 export const Calculator = () => {
+  const [memory, setMemory] = useState("0");
+
   return (
     <div style={{ border: "2px black solid", padding: "20px" }}>
       <Formik
@@ -43,7 +46,7 @@ export const Calculator = () => {
           setFieldValue("inputValue", handleCalculation(values.inputValue));
         }}
       >
-        {({ values, setFieldValue, submitForm }) => (
+        {({ values, setFieldValue, submitForm, resetForm }) => (
           <Grid container style={{ maxWidth: "330px" }} spacing={2}>
             <Grid item xs={12}>
               <Field name="inputValue">
@@ -76,6 +79,16 @@ export const Calculator = () => {
                         onClick={() => {
                           if (button.value === "=") {
                             submitForm();
+                          } else if (button.value === "AC") {
+                            resetForm({ values: { inputValue: "" }});
+                          } else if (button.value === "MC") {
+                            setMemory("0");
+                          } else if (button.value === "MR") {
+                            setFieldValue("inputValue", memory)
+                          } else if (button.value === "M+") {
+                            setMemory(handleCalculation(`${memory} + ${values.inputValue || "0"}`));
+                          } else if (button.value === "M-") {
+                            setMemory(handleCalculation(`${memory} - ${values.inputValue || "0"}`));
                           } else {
                             setFieldValue(
                               "inputValue",
