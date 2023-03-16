@@ -113,3 +113,33 @@ describe("Additional Test", () => {
     expect(handleCalculation("10000 * ((1 + 0.073)^5)")).toBe("14223.242342765927");
   });
 })
+
+describe("Percentage Operations", () => {
+  test("10% to equal 0.1", () => {
+    expect(handleCalculation("10%")).toBe("0.1");
+  });
+
+  test("12 + (12 * 10%) to equal 13.2", () => {
+    expect(handleCalculation("12 + (12 * 10%)")).toBe("13.2");
+  });
+
+  test("10 - (10 * 10%) to equal 9", () => {
+    expect(handleCalculation("10 - (10 * 10%)")).toBe("9");
+  });
+
+  test("15 * 10% to equal 1.5", () => {
+    expect(handleCalculation("15 * 10%")).toBe("1.5");
+  });
+
+  test("15 / 10% to equal 150", () => {
+    expect(handleCalculation("15 / 10%")).toBe("150");
+  });
+
+  test("35.25 + (35.25 * 0.075) to equal 37.89375", () => {
+    expect(handleCalculation("35.25 + (35.25 * 0.075)")).toBe("37.89375");
+  });
+
+  test("40.00 - (40.00 * 0.025) to equal 39", () => {
+    expect(handleCalculation("40.00 - (40.00 * 0.025)")).toBe("39");
+  });
+})

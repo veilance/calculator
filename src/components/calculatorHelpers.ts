@@ -11,7 +11,7 @@ const calc = (nums: any, ops: any): void => {
   } else if (op === "/") {
     nums.push(a / b);
   } else if (op === "√") {
-    nums.push(b ** (1/2))
+    nums.push(b ** (1 / 2));
   } else if (op === "^") {
     nums.push(a ** b);
   }
@@ -21,7 +21,14 @@ const precedes = (prevOp: string, currOp: string): boolean => {
   if (prevOp === "(") {
     return false;
   }
-  return prevOp === "^" || prevOp === "√" || prevOp === "*" || prevOp === "/" || currOp === "+" || currOp === "-";
+  return (
+    prevOp === "^" ||
+    prevOp === "√" ||
+    prevOp === "*" ||
+    prevOp === "/" ||
+    currOp === "+" ||
+    currOp === "-"
+  );
 };
 
 export const handleCalculation = (input: string): string => {
@@ -36,7 +43,11 @@ export const handleCalculation = (input: string): string => {
       while (i + 1 < input.length && /[0-9.]/.test(input.charAt(i + 1))) {
         num = num + input.charAt(i++ + 1);
       }
-      nums.push(Number(num));
+      if (input.charAt(i + 1) === "%") {
+        nums.push(Number(num) / 100);
+      } else {
+        nums.push(Number(num));
+      }
       hasPrevNum = true;
     } else if (c === "(") {
       operations.push("(");
@@ -44,13 +55,23 @@ export const handleCalculation = (input: string): string => {
     } else if (c === ")") {
       while (operations[operations.length - 1] != "(") {
         calc(nums, operations);
-      };
+      }
       operations.pop();
-    } else if (c === "+" || c === "-" || c === "*" || c === "/" || c === "^" || c === "√") {
+    } else if (
+      c === "+" ||
+      c === "-" ||
+      c === "*" ||
+      c === "/" ||
+      c === "^" ||
+      c === "√"
+    ) {
       if (!hasPrevNum) {
         nums.push(0);
       }
-      while (operations.length > 0 && precedes(operations[operations.length - 1], c)) {
+      while (
+        operations.length > 0 &&
+        precedes(operations[operations.length - 1], c)
+      ) {
         calc(nums, operations);
       }
       operations.push(c);
