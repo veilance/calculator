@@ -1,7 +1,8 @@
-import { Grid, Button, TextField } from "@mui/material";
+import { Grid, Button, TextField, InputAdornment } from "@mui/material";
 import { Field, FieldProps, Formik } from "formik";
 import { useState } from "react";
 import { handleCalculation } from "./calculatorHelpers";
+import { HistoryPopover } from "./HistoryPopover";
 
 const operators = ["/", "*", "-", "+"];
 
@@ -34,6 +35,7 @@ const buttons = [
 
 export const Calculator = () => {
   const [memory, setMemory] = useState("0");
+  const history: string[] = [];
 
   return (
     <div style={{ border: "2px black solid", padding: "20px" }}>
@@ -43,7 +45,9 @@ export const Calculator = () => {
           inputValue: "",
         }}
         onSubmit={(values, { setFieldValue }) => {
-          setFieldValue("inputValue", handleCalculation(values.inputValue));
+          const result = handleCalculation(values.inputValue);
+          history.push(`${values.inputValue} = ${result}`);
+          setFieldValue("inputValue", result);
         }}
       >
         {({ values, setFieldValue, submitForm, resetForm }) => (
@@ -59,6 +63,13 @@ export const Calculator = () => {
                       if (event.keyCode === 13) {
                         submitForm();
                       }
+                    }}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <HistoryPopover history={history} />
+                        </InputAdornment>
+                      ),
                     }}
                     {...field}
                   />
@@ -80,15 +91,23 @@ export const Calculator = () => {
                           if (button.value === "=") {
                             submitForm();
                           } else if (button.value === "AC") {
-                            resetForm({ values: { inputValue: "" }});
+                            resetForm({ values: { inputValue: "" } });
                           } else if (button.value === "MC") {
                             setMemory("0");
                           } else if (button.value === "MR") {
-                            setFieldValue("inputValue", memory)
+                            setFieldValue("inputValue", memory);
                           } else if (button.value === "M+") {
-                            setMemory(handleCalculation(`${memory} + ${values.inputValue || "0"}`));
+                            setMemory(
+                              handleCalculation(
+                                `${memory} + ${values.inputValue || "0"}`
+                              )
+                            );
                           } else if (button.value === "M-") {
-                            setMemory(handleCalculation(`${memory} - ${values.inputValue || "0"}`));
+                            setMemory(
+                              handleCalculation(
+                                `${memory} - ${values.inputValue || "0"}`
+                              )
+                            );
                           } else {
                             setFieldValue(
                               "inputValue",
