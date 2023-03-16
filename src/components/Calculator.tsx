@@ -2,7 +2,7 @@ import { Grid, Button, TextField } from "@mui/material";
 import { Field, FieldProps, Formik } from "formik";
 import { handleCalculation } from "./calculatorHelpers";
 
-const operators = ["÷", "X", "-", "+"];
+const operators = ["/", "*", "-", "+"];
 
 const buttons = [
   { label: "MC", backgroundColor: "lightgrey", value: "MC" },
