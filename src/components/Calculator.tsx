@@ -1,5 +1,8 @@
 import { Grid, Button, TextField } from "@mui/material";
 import { Field, FieldProps, Formik } from "formik";
+import { handleCalculation } from "./calculatorHelpers";
+
+const operators = ["÷", "X", "-", "+"];
 
 const buttons = [
   { label: "MC", backgroundColor: "lightgrey", value: "MC" },
@@ -9,11 +12,11 @@ const buttons = [
   { label: "AC", backgroundColor: "lightgrey", value: "AC" },
   { label: "√", backgroundColor: "lightgrey", value: "√" },
   { label: "%", backgroundColor: "lightgrey", value: "%" },
-  { label: "÷", backgroundColor: "orange", value: "÷" },
+  { label: "÷", backgroundColor: "orange", value: "/" },
   { label: "7", backgroundColor: "white", value: "7" },
   { label: "8", backgroundColor: "white", value: "8" },
   { label: "9", backgroundColor: "white", value: "9" },
-  { label: "X", backgroundColor: "orange", value: "X" },
+  { label: "×", backgroundColor: "orange", value: "*" },
   { label: "4", backgroundColor: "white", value: "4" },
   { label: "5", backgroundColor: "white", value: "5" },
   { label: "6", backgroundColor: "white", value: "6" },
@@ -29,25 +32,33 @@ const buttons = [
 ];
 
 export const Calculator = () => {
-  const handleInput = (value: any, setFieldValue: any) => {
-    setFieldValue("inputValue", value);
-  };
-
   return (
     <div style={{ border: "2px black solid", padding: "20px" }}>
       <Formik
         enableReinitialize
         initialValues={{
-          inputValue: 0,
+          inputValue: "",
         }}
-        onSubmit={() => {}}
+        onSubmit={(values, { setFieldValue }) => {
+          setFieldValue("inputValue", handleCalculation(values.inputValue));
+        }}
       >
-        {({ setFieldValue }) => (
+        {({ values, setFieldValue, submitForm }) => (
           <Grid container style={{ maxWidth: "330px" }} spacing={2}>
             <Grid item xs={12}>
               <Field name="inputValue">
                 {({ field }: FieldProps) => (
-                  <TextField required fullWidth variant="outlined" {...field} />
+                  <TextField
+                    required
+                    fullWidth
+                    variant="outlined"
+                    onKeyDown={(event: any) => {
+                      if (event.keyCode === 13) {
+                        submitForm();
+                      }
+                    }}
+                    {...field}
+                  />
                 )}
               </Field>
             </Grid>
@@ -55,7 +66,7 @@ export const Calculator = () => {
               <Grid container justifyContent="space-between" spacing={2}>
                 {buttons.map((button) => {
                   return (
-                    <Grid item>
+                    <Grid item key={button.label}>
                       <Button
                         variant="contained"
                         style={{
@@ -63,7 +74,16 @@ export const Calculator = () => {
                           color: "black",
                         }}
                         onClick={() => {
-                          handleInput(button.value, setFieldValue);
+                          if (button.value === "=") {
+                            submitForm();
+                          } else {
+                            setFieldValue(
+                              "inputValue",
+                              operators.includes(button.value)
+                                ? `${values.inputValue} ${button.value} `
+                                : `${values.inputValue}${button.value}`
+                            );
+                          }
                         }}
                       >
                         {button.label}
