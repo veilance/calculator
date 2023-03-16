@@ -1,21 +1,21 @@
-const calc = (nums: any, ops: any) => {
+const calc = (nums: any, ops: any): void => {
   const b = nums.pop();
   const a = nums.pop();
   const op = ops.pop();
-  if (op == "+") {
+  if (op === "+") {
     nums.push(a + b);
-  } else if (op == "-") {
+  } else if (op === "-") {
     nums.push(a - b);
-  } else if (op == "*") {
+  } else if (op === "*") {
     nums.push(a * b);
   } else {
     nums.push(a / b);
   }
 };
 
-const precedes = (prevOp: string, currOp: string) => {
-  if (prevOp == "(") return false;
-  return prevOp == "*" || prevOp == "/" || currOp == "+" || currOp == "-";
+const precedes = (prevOp: string, currOp: string): boolean => {
+  if (prevOp === "(") return false;
+  return prevOp === "*" || prevOp === "/" || currOp === "+" || currOp === "-";
 };
 
 export const handleCalculation = (input: string): string => {
@@ -32,15 +32,15 @@ export const handleCalculation = (input: string): string => {
       }
       nums.push(num);
       hasPrevNum = true;
-    } else if (c == "(") {
+    } else if (c === "(") {
       operations.push("(");
       hasPrevNum = false;
-    } else if (c == ")") {
+    } else if (c === ")") {
       while (operations[operations.length - 1] != "(") {
         calc(nums, operations);
       };
       operations.pop();
-    } else if (c == "+" || c == "-" || c == "*" || c == "/") {
+    } else if (c === "+" || c === "-" || c === "*" || c === "/") {
       if (!hasPrevNum) {
         nums.push(0);
       }
