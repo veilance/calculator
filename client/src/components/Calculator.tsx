@@ -29,7 +29,7 @@ const buttons = [
   { label: "+", backgroundColor: "orange", value: "+" },
   { label: "0", backgroundColor: "white", value: "0" },
   { label: ".", backgroundColor: "white", value: "." },
-  { label: "^", backgroundColor: "white", value: "^" },
+  { label: "EXP", backgroundColor: "white", value: "^" },
   { label: "=", backgroundColor: "orange", value: "=" },
 ];
 
