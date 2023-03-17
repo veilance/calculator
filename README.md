@@ -19,3 +19,13 @@ The calculator should have the following features:
 - [x] Square root function (√)
 - [x] Exponential function (^)
 - [x] History function
+
+# Screen Shots
+![Screen Shot 2023-03-17 at 2 35 46 PM](https://user-images.githubusercontent.com/28986205/226058170-a0e43f2e-ab0f-4fe6-be9e-8145ada8cad7.png)
+![Screen Shot 2023-03-17 at 2 34 39 PM](https://user-images.githubusercontent.com/28986205/226058174-e4c66ba7-d981-4bea-8779-ffe3fee9a227.png)
+![Screen Shot 2023-03-17 at 2 34 10 PM](https://user-images.githubusercontent.com/28986205/226058177-cdf1a042-4388-4905-b950-17ac41990d4e.png)
+![Screen Shot 2023-03-17 at 2 34 03 PM](https://user-images.githubusercontent.com/28986205/226058181-881844f0-3d29-49b8-be53-b26fb8b6f787.png)
+![Screen Shot 2023-03-17 at 2 33 54 PM](https://user-images.githubusercontent.com/28986205/226058182-ffbd12cb-f0c6-45fb-baa5-d5a865c62566.png)
+
+# Technology
+React, TypeScript, Formik, Material UI, JavaScript, Knex, Express, Node, PSQL
