@@ -1,5 +1,6 @@
-import { AppBar, ContainerProps, Grid, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import React from "react";
+import { AppBar, ContainerProps, Grid, Typography, Link, Button } from "@mui/material";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 interface PageProps {
   children?: any;
@@ -9,6 +10,7 @@ export const Page: React.FC<PageProps & ContainerProps> = ({
   children,
   ...props
 }: PageProps & ContainerProps) => {
+  const navigation = useNavigate();
   return (
     <>
       <AppBar
@@ -18,7 +20,7 @@ export const Page: React.FC<PageProps & ContainerProps> = ({
       >
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item>
-            <Link to="/">
+            <Link component={RouterLink} to="/">
               <img alt="Logo" src={"Vial Logo.svg"} />
             </Link>
           </Grid>
@@ -29,12 +31,51 @@ export const Page: React.FC<PageProps & ContainerProps> = ({
               alignItems="center"
               spacing={2}
             >
-              <Grid item>
-                <Typography align="center">Christopher Tam</Typography>
-                <Typography align="center">Authenticated</Typography>
-              </Grid>
-              <Grid item>Login</Grid>
-              <Grid item>Sign Up</Grid>
+              {localStorage.getItem("email") ? (
+                <>
+                  <Grid item>
+                    <Typography align="center">
+                      {localStorage.getItem("email")}
+                    </Typography>
+                    <Typography align="center">Authenticated</Typography>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      variant="text"
+                      style={{
+                        color: "white"
+                      }}
+                      onClick={() => {
+                        localStorage.setItem("email", "")
+                        navigation("/sign-in")
+                      }}
+                    >
+                      Log Out
+                    </Button>
+                  </Grid>
+                </>
+              ) : (
+                <>
+                  <Grid item>
+                    <Link
+                      component={RouterLink}
+                      to="/sign-in"
+                      style={{ color: "white", textDecoration: "none" }}
+                    >
+                      Sign In
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    <Link
+                      component={RouterLink}
+                      to="/sign-up"
+                      style={{ color: "white", textDecoration: "none" }}
+                    >
+                      Sign Up
+                    </Link>
+                  </Grid>
+                </>
+              )}
             </Grid>
           </Grid>
         </Grid>
