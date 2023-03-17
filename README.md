@@ -8,6 +8,7 @@
 - run: `docker-compose up` in terminal
 - run: `knex migrate:latest` to get PSQL DB up to date
 - go to `localhost:3000` in browser to view the application
+- to run tests, go to client folder and run `npm test` to run the calculator tests
 
 # Requirements
 - [x] The calculator should have a browser-based user interface (ie it can be opened using a web browser)
