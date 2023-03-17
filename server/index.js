@@ -1,10 +1,10 @@
 const express = require('express')
 const knexConfig   = require("./knexfile");
 const knex = require("knex")(knexConfig["development"]);
-const usersRouter = require('./routes/user');
+const userRouter = require('./routes/user');
 
-const app = express()
-const port = 5001
+const app = express();
+const port = 5001;
 
 app.listen(port, () => {
   console.log(`Server listening at: http://localhost:${port}`)
@@ -17,6 +17,6 @@ app.use((_, res, next) => {
   next();
 });
 
-app.use('/', usersRouter(knex));
+app.use('/user', userRouter(knex));
 
 module.exports = app;

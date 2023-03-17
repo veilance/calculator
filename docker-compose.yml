@@ -12,7 +12,7 @@ services:
   # Node Server
   nodeserver:
     image: node:18.15.0
-    command: node ./app.js
+    command: node ./index.js
     working_dir: /src
     volumes:
       - ./server:/src
